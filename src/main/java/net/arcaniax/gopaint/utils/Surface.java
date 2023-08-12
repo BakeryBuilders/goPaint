@@ -47,7 +47,6 @@ public class Surface {
         double distance = blockLoc.distance(playerLoc);
         double distToCenter = blockLoc.distance(center);
         for (int x = 1; x < distance; x++) {
-            if (x + distToCenter > size) return true;
             double moveX = distanceX * (x / distance);
             double moveY = distanceY * (x / distance);
             double moveZ = distanceZ * (x / distance);
@@ -55,8 +54,11 @@ public class Surface {
             if (checkLoc.getBlock().getType() != Material.AIR) {
                 return false;
             }
+            if (x + distToCenter > size) {
+                return true;
+            }
         }
         return true;
     }
-
+    
 }
