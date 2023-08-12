@@ -50,7 +50,7 @@ public class AngleBrush extends Brush {
         List<Block> blocks = Sphere.getBlocksInRadius(loc, size);
         List<BlockPlace> placedBlocks = new ArrayList<>();
         for (Block b : blocks) {
-            if ((!pb.isSurfaceModeEnabled()) || Surface.isOnSurface(b.getLocation(), p.getLocation())) {
+            if ((!pb.isSurfaceModeEnabled()) || Surface.isOnSurface(b.getLocation(), p.getLocation(), loc, size)) {
                 if ((!pb.isMaskEnabled()) || (b.getType().equals(pb
                         .getMask()
                         .getMaterial()) && (XMaterial.isNewVersion() || b.getData() == pb.getMask().getData()))) {
@@ -91,7 +91,7 @@ public class AngleBrush extends Brush {
         List<Block> blocks = Sphere.getBlocksInRadius(loc, size);
         List<BlockPlace> placedBlocks = new ArrayList<BlockPlace>();
         for (Block b : blocks) {
-            if ((!epb.isSurfaceModeEnabled()) || Surface.isOnSurface(b.getLocation(), p.getLocation())) {
+            if ((!epb.isSurfaceModeEnabled()) || Surface.isOnSurface(b.getLocation(), p.getLocation(), loc, size)) {
                 if ((!epb.isMaskEnabled()) || (b.getType().equals(epb
                         .getMask()
                         .getMaterial()) && (XMaterial.isNewVersion() || b.getData() == epb.getMask().getData()))) {

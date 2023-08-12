@@ -23,7 +23,7 @@ import org.bukkit.Material;
 
 public class Surface {
 
-    public static boolean isOnSurface(Location blockLoc, Location playerLoc) {
+    public static boolean isOnSurface(Location blockLoc, Location playerLoc, Location center, int size) {
         playerLoc.add(0, 1.5, 0);
         double distanceX = playerLoc.getX() - blockLoc.getX();
         double distanceY = playerLoc.getY() - blockLoc.getY();
@@ -45,7 +45,9 @@ public class Surface {
         }
 
         double distance = blockLoc.distance(playerLoc);
+        double distToCenter = blockLoc.distance(center);
         for (int x = 1; x < distance; x++) {
+            if (x + distToCenter > size) return true;
             double moveX = distanceX * (x / distance);
             double moveY = distanceY * (x / distance);
             double moveZ = distanceZ * (x / distance);

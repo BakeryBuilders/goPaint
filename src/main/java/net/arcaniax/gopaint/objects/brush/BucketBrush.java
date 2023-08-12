@@ -51,7 +51,7 @@ public class BucketBrush extends Brush {
         List<Block> connectedBlocks = ConnectedBlocks.getConnectedBlocks(loc, blocks);
         List<BlockPlace> placedBlocks = new ArrayList<BlockPlace>();
         for (Block b : connectedBlocks) {
-            if ((!pb.isSurfaceModeEnabled()) || Surface.isOnSurface(b.getLocation(), p.getLocation())) {
+            if ((!pb.isSurfaceModeEnabled()) || Surface.isOnSurface(b.getLocation(), p.getLocation(), loc, size)) {
                 if ((!pb.isMaskEnabled()) || (b.getType().equals(pb
                         .getMask()
                         .getMaterial()) && (XMaterial.isNewVersion() || b.getData() == pb.getMask().getData()))) {
@@ -87,7 +87,7 @@ public class BucketBrush extends Brush {
         List<Block> connectedBlocks = ConnectedBlocks.getConnectedBlocks(loc, blocks);
         List<BlockPlace> placedBlocks = new ArrayList<BlockPlace>();
         for (Block b : connectedBlocks) {
-            if ((!epb.isSurfaceModeEnabled()) || Surface.isOnSurface(b.getLocation(), p.getLocation())) {
+            if ((!epb.isSurfaceModeEnabled()) || Surface.isOnSurface(b.getLocation(), p.getLocation(), loc, size)) {
                 if ((!epb.isMaskEnabled()) || (b.getType().equals(epb
                         .getMask()
                         .getMaterial()) && (XMaterial.isNewVersion() || b.getData() == epb.getMask().getData()))) {
