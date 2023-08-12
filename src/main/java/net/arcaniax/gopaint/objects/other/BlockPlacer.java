@@ -43,7 +43,7 @@ public class BlockPlacer {
     }
 
     public void placeBlocks(Collection<BlockPlace> blocks, final Player p) {
-        Bukkit.getScheduler().runTaskAsynchronously(GoPaintPlugin.getGoPaintPlugin(), () -> {
+        //Bukkit.getScheduler().runTaskAsynchronously(GoPaintPlugin.getGoPaintPlugin(), () -> {
             LocalSession localSession = WorldEdit.getInstance().getSessionManager().get(new BukkitPlayer(p));
             try (EditSession editsession = localSession.createEditSession(new BukkitPlayer(p))) {
                 try {
@@ -65,7 +65,7 @@ public class BlockPlacer {
                     localSession.remember(editsession);
                 }
             }
-        });
+        //});
     }
 
 }
