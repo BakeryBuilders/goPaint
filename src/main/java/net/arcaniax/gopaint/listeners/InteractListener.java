@@ -18,10 +18,12 @@
  */
 package net.arcaniax.gopaint.listeners;
 
+import com.sk89q.worldedit.bukkit.BukkitAdapter;
 import net.arcaniax.gopaint.GoPaintPlugin;
 import net.arcaniax.gopaint.objects.player.ExportedPlayerBrush;
 import net.arcaniax.gopaint.objects.player.PlayerBrush;
 import net.arcaniax.gopaint.utils.XMaterial;
+import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -97,7 +99,10 @@ public class InteractListener implements Listener {
             }
             final PlayerBrush pb = GoPaintPlugin.getBrushManager().getPlayerBrush(p);
             if (pb.isEnabled()) {
-                pb.getBrush().paint(loc, p);
+                Bukkit.getScheduler().runTaskAsynchronously(GoPaintPlugin.getGoPaintPlugin(), () -> {
+                    //BukkitAdapter.adapt(p).runAsyncIfFree(() -> pb.getBrush().paint(loc, p));
+                    pb.getBrush().paint(loc, p);
+                });
             } else {
                 p.sendMessage(GoPaintPlugin
                         .getSettings()

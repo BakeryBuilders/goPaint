@@ -102,7 +102,7 @@ public class PaintBrush extends Brush {
                                 .getBlock()
                                 .getType()
                                 .equals(XMaterial.AIR.parseMaterial()))) {
-                            if ((!pb.isSurfaceModeEnabled()) || Surface.isOnSurface(location, p.getLocation())) {
+                            if ((!pb.isSurfaceModeEnabled()) || Surface.isOnSurface(b.getLocation(), p.getLocation(), loc, size)) {
                                 if ((!pb.isMaskEnabled()) || (b.getType().equals(pb
                                         .getMask()
                                         .getMaterial()) && (XMaterial.isNewVersion() || b.getData() == pb.getMask().getData()))) {
@@ -181,7 +181,7 @@ public class PaintBrush extends Brush {
                                 .getBlock()
                                 .getType()
                                 .equals(XMaterial.AIR.parseMaterial()))) {
-                            if ((!epb.isSurfaceModeEnabled()) || Surface.isOnSurface(location, p.getLocation())) {
+                            if ((!epb.isSurfaceModeEnabled()) || Surface.isOnSurface(b.getLocation(), p.getLocation(), loc, size)) {
                                 if ((!epb.isMaskEnabled()) || (b.getType().equals(epb
                                         .getMask()
                                         .getMaterial()) && (XMaterial.isNewVersion() || b.getData() == epb

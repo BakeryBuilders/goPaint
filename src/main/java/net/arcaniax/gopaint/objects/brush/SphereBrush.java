@@ -27,6 +27,7 @@ import net.arcaniax.gopaint.objects.player.PlayerBrush;
 import net.arcaniax.gopaint.utils.Sphere;
 import net.arcaniax.gopaint.utils.Surface;
 import net.arcaniax.gopaint.utils.XMaterial;
+import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
@@ -49,7 +50,7 @@ public class SphereBrush extends Brush {
         List<Block> blocks = Sphere.getBlocksInRadius(loc, size);
         List<BlockPlace> placedBlocks = new ArrayList<>();
         for (Block b : blocks) {
-            if ((!pb.isSurfaceModeEnabled()) || Surface.isOnSurface(b.getLocation(), p.getLocation())) {
+            if ((!pb.isSurfaceModeEnabled()) || Surface.isOnSurface(b.getLocation(), p.getLocation(), loc, size)) {
                 if ((!pb.isMaskEnabled()) || (b.getType().equals(pb
                         .getMask()
                         .getMaterial()) && (XMaterial.isNewVersion() || b.getData() == pb.getMask().getData()))) {
@@ -84,7 +85,7 @@ public class SphereBrush extends Brush {
         List<Block> blocks = Sphere.getBlocksInRadius(loc, size);
         List<BlockPlace> placedBlocks = new ArrayList<>();
         for (Block b : blocks) {
-            if ((!epb.isSurfaceModeEnabled()) || Surface.isOnSurface(b.getLocation(), p.getLocation())) {
+            if ((!epb.isSurfaceModeEnabled()) || Surface.isOnSurface(b.getLocation(), p.getLocation(), loc, size)) {
                 if ((!epb.isMaskEnabled()) || (b.getType().equals(epb
                         .getMask()
                         .getMaterial()) && (XMaterial.isNewVersion() || b.getData() == epb.getMask().getData()))) {

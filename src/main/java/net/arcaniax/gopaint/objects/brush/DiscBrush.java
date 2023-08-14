@@ -54,7 +54,7 @@ public class DiscBrush extends Brush {
                     .getBlockX() == loc.getBlockX()) || (pb.getAxis().equals("z") && b
                     .getLocation()
                     .getBlockZ() == loc.getBlockZ())) {
-                if ((!pb.isSurfaceModeEnabled()) || Surface.isOnSurface(b.getLocation(), p.getLocation())) {
+                if ((!pb.isSurfaceModeEnabled()) || Surface.isOnSurface(b.getLocation(), p.getLocation(), loc, size)) {
                     if ((!pb.isMaskEnabled()) || (b.getType().equals(pb
                             .getMask()
                             .getMaterial()) && (XMaterial.isNewVersion() || b.getData() == pb.getMask().getData()))) {
@@ -94,7 +94,7 @@ public class DiscBrush extends Brush {
                     .getBlockX() == loc.getBlockX()) || (epb.getAxis().equals("z") && b
                     .getLocation()
                     .getBlockZ() == loc.getBlockZ())) {
-                if ((!epb.isSurfaceModeEnabled()) || Surface.isOnSurface(b.getLocation(), p.getLocation())) {
+                if ((!epb.isSurfaceModeEnabled()) || Surface.isOnSurface(b.getLocation(), p.getLocation(), loc, size)) {
                     if ((!epb.isMaskEnabled()) || (b.getType().equals(epb
                             .getMask()
                             .getMaterial()) && (XMaterial.isNewVersion() || b.getData() == epb.getMask().getData()))) {
