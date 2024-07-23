@@ -7,9 +7,9 @@ plugins {
     java
     `java-library`
 
-    id("com.diffplug.spotless") version "6.23.2"
+    id("com.diffplug.spotless") version "6.25.0"
     id("com.github.johnrengelman.shadow") version "8.1.1"
-    id("org.ajoberstar.grgit") version "5.2.1"
+    id("org.ajoberstar.grgit") version "5.2.2"
     id("net.minecrell.plugin-yml.bukkit") version "0.6.0"
 
     idea
@@ -49,7 +49,7 @@ repositories {
 }
 
 dependencies {
-    implementation(platform("com.intellectualsites.bom:bom-newest:1.39"))
+    implementation(platform("com.intellectualsites.bom:bom-newest:1.44"))
     compileOnlyApi("io.papermc.paper:paper-api:1.19.3-R0.1-SNAPSHOT")
     compileOnly("com.mojang:authlib:1.5.25")
     compileOnlyApi("com.fastasyncworldedit:FastAsyncWorldEdit-Bukkit")
@@ -107,7 +107,7 @@ tasks.named<ShadowJar>("shadowJar") {
     archiveClassifier.set(null as String?)
     dependencies {
         relocate("org.incendo.serverlib", "net.arcaniax.gopaint.serverlib") {
-            include(dependency("dev.notmyfault.serverlib:ServerLib:2.3.4"))
+            include(dependency("dev.notmyfault.serverlib:ServerLib:2.3.6"))
         }
         relocate("org.bstats", "net.arcaniax.gopaint.metrics") {
             include(dependency("org.bstats:bstats-base"))
