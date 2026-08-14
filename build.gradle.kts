@@ -7,9 +7,9 @@ plugins {
     java
     `java-library`
 
-    id("com.diffplug.spotless") version "6.25.0"
+    id("com.diffplug.spotless") version "8.9.0"
     id("com.github.johnrengelman.shadow") version "8.1.1"
-    id("org.ajoberstar.grgit") version "5.2.2"
+    id("org.ajoberstar.grgit") version "5.3.3"
     id("net.minecrell.plugin-yml.bukkit") version "0.6.0"
 
     idea
@@ -46,6 +46,7 @@ repositories {
         name = "S01 Sonatype"
         url = uri("https://s01.oss.sonatype.org/content/repositories/snapshots/")
     }
+    maven { url = uri("https://repo.papermc.io/repository/maven-public/") }
 }
 
 dependencies {
@@ -54,8 +55,8 @@ dependencies {
     compileOnly("com.mojang:authlib:1.5.25")
     compileOnlyApi("com.fastasyncworldedit:FastAsyncWorldEdit-Bukkit")
     implementation("dev.notmyfault.serverlib:ServerLib")
-    implementation("org.bstats:bstats-bukkit:3.0.2")
-    implementation("org.bstats:bstats-base:3.0.2")
+    implementation("org.bstats:bstats-bukkit:3.2.1")
+    implementation("org.bstats:bstats-base:3.2.1")
     implementation("io.papermc:paperlib")
 }
 
@@ -107,7 +108,7 @@ tasks.named<ShadowJar>("shadowJar") {
     archiveClassifier.set(null as String?)
     dependencies {
         relocate("org.incendo.serverlib", "net.arcaniax.gopaint.serverlib") {
-            include(dependency("dev.notmyfault.serverlib:ServerLib:2.3.6"))
+            include(dependency("dev.notmyfault.serverlib:ServerLib:2.3.7"))
         }
         relocate("org.bstats", "net.arcaniax.gopaint.metrics") {
             include(dependency("org.bstats:bstats-base"))

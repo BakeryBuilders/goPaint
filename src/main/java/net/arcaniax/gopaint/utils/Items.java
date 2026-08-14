@@ -20,14 +20,23 @@ package net.arcaniax.gopaint.utils;
 
 import com.mojang.authlib.GameProfile;
 import com.mojang.authlib.properties.Property;
+import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.inventory.meta.SkullMeta;
+import org.bukkit.profile.PlayerProfile;
+import org.bukkit.profile.PlayerTextures;
+import org.bukkit.Material;
+import org.bukkit.Bukkit;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
+import java.net.URL;
+import java.nio.charset.StandardCharsets;
+import java.util.Base64;
 import java.util.UUID;
 
 public class Items {
@@ -36,18 +45,17 @@ public class Items {
     }
 
     public ItemStack create(Material mat, short data, int amount, String name, String lore) {
-        ItemStack is = new ItemStack(mat);
-        is.setAmount(amount);
+        ItemStack is = new ItemStack(mat, amount);
         ItemMeta meta = is.getItemMeta();
-        if (!lore.equals("")) {
+        if (!lore.isEmpty()) {
             String[] loreListArray = lore.split("___");
-            List<String> loreList = new ArrayList<String>();
+            List<String> loreList = new ArrayList<>();
             for (String s : loreListArray) {
                 loreList.add(s.replace("&", "§"));
             }
             meta.setLore(loreList);
         }
-        if (!name.equals("")) {
+        if (!name.isEmpty()) {
             meta.setDisplayName(name.replace("&", "§"));
         }
         is.setItemMeta(meta);
@@ -56,41 +64,36 @@ public class Items {
     }
 
     public ItemStack createHead(String data, int amount, String name, String lore) {
-        ItemStack item;
-        if (XMaterial.isNewVersion()) {
-            item = XMaterial.PLAYER_HEAD.parseItem();
-        } else {
-            item = new ItemStack(Material.getMaterial("SKULL_ITEM"));
-            item.setDurability((short) 3);
-        }
-        item.setAmount(amount);
-        ItemMeta meta = item.getItemMeta();
-        if (lore != "") {
-            String[] loreListArray = lore.split("___");
-            List<String> loreList = new ArrayList<String>();
-            for (String s : loreListArray) {
-                loreList.add(s.replace("&", "§"));
-            }
-            meta.setLore(loreList);
-        }
-        if (!name.equals("")) {
-            meta.setDisplayName(name.replace("&", "§"));
-        }
-        item.setItemMeta(meta);
-        if (item.getItemMeta() instanceof SkullMeta) {
-            SkullMeta headMeta = (SkullMeta) item.getItemMeta();
-            GameProfile profile = new GameProfile(UUID.randomUUID(), "goPaint");
-            profile.getProperties().put("textures", new Property("textures", data));
-            Field profileField = null;
-            try {
-                profileField = headMeta.getClass().getDeclaredField("profile");
-                profileField.setAccessible(true);
-                profileField.set(headMeta, profile);
+        ItemStack item = new ItemStack(Material.PLAYER_HEAD, amount);
+        SkullMeta headMeta = (SkullMeta) item.getItemMeta();
+        try {
+                PlayerProfile playerProfile = Bukkit.getServer().createPlayerProfile(UUID.randomUUID(), "goPaint");
+                PlayerTextures texture = playerProfile.getTextures();
+                String url = null;
+                byte[] decoded = Base64.getDecoder().decode(data);
+                try {
+                    url = new String(decoded, StandardCharsets.UTF_8);
+                } catch (Exception ignored) {}
+                url = url.replace("{\"textures\":{\"SKIN\":{\"url\":\"", "").replace("\"}}}", "");
+                texture.setSkin(new URL(url));
+                headMeta.setOwnerProfile(playerProfile);
             } catch (Exception ignored) {
             }
-            item.setItemMeta(headMeta);
+        if (!lore.isEmpty()) {
+            String[] loreListArray = lore.split("___");
+            List<String> loreList = new ArrayList<String>();
+            String[] arrayOfString1;
+            int j = (arrayOfString1 = loreListArray).length;
+            for (int i = 0; i < j; i++) {
+                String s = arrayOfString1[i];
+                loreList.add(ChatColor.translateAlternateColorCodes('&', s));
+            }
+            headMeta.setLore(loreList);
         }
+        if (!name.isEmpty()) {
+            headMeta.setDisplayName(ChatColor.translateAlternateColorCodes('&', name));
+        }
+        item.setItemMeta(headMeta);
         return item;
     }
-
 }
